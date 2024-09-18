@@ -33,22 +33,32 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
-gem 'httparty' # For making HTTP requests to OpenWeatherMap
-gem 'bootstrap', '~> 5.1.0'
+gem "faraday" # For making HTTP requests to OpenWeatherMap
+gem "bootstrap", "~> 5.1.0"
+gem "sassc-rails"
+gem "hashie"
 
 group :development, :test do
-  gem 'yard' # For documentation
-  gem 'rspec-rails'
+  gem "dotenv-rails" # For loading environment variables
+  gem "yard" # For documentation
+  gem "rspec-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-  gem 'pry-rails'
-  gem 'pry-nav'
+  gem "pry-rails"
+  gem "pry-nav"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+end
+
+group :test do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "vcr"
+  gem "webmock"
+  gem "web-console"
 end
 
 group :development do
