@@ -1,0 +1,63 @@
+<div id="forecast_details_<%= @location.zip_code %>" class="row justify-content-center mt-4">
+  <div class="col-md-8 col-lg-6">
+    <div class="card bg-primary text-white text-center">
+      <div class="card-header bg-light text-dark">
+        <h5 class="card-title">
+          Weather for <%= @location.zip_code %>
+          <% if @cached %>
+            <span class="badge bg-warning text-dark float-end">Cached</span>
+          <% end %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="display-1">
+            <img src="<%= weather_icon_url(@response.condition_id) %>" alt="<%= @response.conditions %> icon" class="mb-4 img-fluid">
+            <p class="display-1"><%= @response.temperature %> &deg;F</p>
+            <p class="lead"><%= @response.conditions %></p>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div class="mt-3 text-center">
+  <%= link_to "Check Another Location", new_address_path, class: "btn btn-primary" %>
+</div>
+<% if @response.daily %>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8 col-lg-6">
+      <section class="card">
+        <div class="card-header bg-light text-dark text-center">
+          <h5 class="card-title">5-Day Forecast</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover text-center">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Temp (°F)</th>
+                  <th>Conditions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @response.daily[0..4].each do |day| %>
+                  <tr>
+                    <td class='align-middle'><%= day.dt.strftime('%B %d, %Y') %></td>
+                    <td class='align-middle'><%= day.temp_day.round %> &deg;F</td>
+                    <td>
+                      <img src="<%= weather_icon_url(day.condition_id) %>"
+                           alt="<%= day.conditions %> icon"
+                           class="mb-4 img-fluid w-25">
+                      <%= day.conditions %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+<% end %>

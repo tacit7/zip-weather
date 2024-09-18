@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-sm" style="width: 100%; max-width: 400px;">
+    <div class="card-body">
+      <h5 class="card-title text-center mb-4">Enter Address for Weather</h5>
+      <!-- Form posts to AddressesController's create action -->
+      <%= form_with(url: addresses_path, method: :post, local: true, class: 'form') do |f| %>
+
+        <!-- City Input -->
+        <div class="mb-3">
+          <%= f.label :city, "City", class: 'form-label' %>
+          <%= f.text_field :city, class: 'form-control', placeholder: 'Enter city', required: true %>
+        </div>
+
+        <!-- US States Dropdown -->
+        <div class="mb-3">
+          <%= f.label :state, "State", class: 'form-label' %>
+          <%= f.select :state, us_states, {}, class: 'form-control',placeholder: 'Select State', required: true %>
+        </div>
+
+        <!-- Zip Code Input -->
+        <div class="mb-3">
+          <%= f.label :zip_code, "Zip Code", class: 'form-label' %>
+          <%= f.text_field :zip_code, class: 'form-control', placeholder: 'Enter zip code', required: true %>
+        </div>
+
+        <div class="d-grid">
+          <%= f.submit "Get Weather", class: 'btn btn-primary btn-block' %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
